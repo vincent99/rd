@@ -71,6 +71,7 @@ export default class Kim extends EventEmitter {
       child.on('exit', (code: number, sig: string) => {
         if (result.stderr) {
           const timeLessMessage = result.stderr.replace(/\btime=".*?"/g, '');
+
           if (this.lastErrorMessage !== timeLessMessage) {
             this.lastErrorMessage = timeLessMessage;
             this.sameErrorMessageCount = 1;
@@ -135,7 +136,7 @@ export default class Kim extends EventEmitter {
     return results;
   }
 
-  listImages(): imageType[]  {
+  listImages(): imageType[] {
     return this.images;
   }
 

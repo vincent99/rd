@@ -321,6 +321,7 @@ export default class WSLBackend extends events.EventEmitter implements K8s.Kuber
 
         while (true) {
           const currentTime = new Date().valueOf();
+
           if ((currentTime - startTime) > maxWaitTime) {
             console.log(`Waited more than ${ maxWaitTime / 1000 } secs, it might start up later`);
             break;
