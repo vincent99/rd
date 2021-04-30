@@ -311,6 +311,8 @@ export default class WSLBackend extends events.EventEmitter implements K8s.Kuber
 
       try {
         childProcess.execSync('wsl --user root -d k3s mount --make-shared /');
+        console.log('Waiting for ensuring root is shared');
+        await util.promisify(setTimeout)(60 * 1000);
         childProcess.execSync(`${ resources.executable('kim') } builder install --force --no-wait`);
         const startTime = new Date().valueOf();
         const checkPodBuilderCommand = `${ resources.executable('kubectl') } -n kube-image get pods --no-headers`;
@@ -330,10 +332,11 @@ export default class WSLBackend extends events.EventEmitter implements K8s.Kuber
           }
           await util.promisify(setTimeout)(waitTime);
         }
-      } catch(e) {
+      } catch (e) {
         console.log(`Failed to restart the kim builder: ${ e.message }.`);
         console.log('The images page will probably be empty');
       }
+      await util.promisify(setTimeout)(30 * 1000);
       this.setState(K8s.State.STARTED);
     } catch (ex) {
       this.setState(K8s.State.ERROR);
