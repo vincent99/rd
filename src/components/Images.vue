@@ -161,12 +161,14 @@ export default {
       return this.images.filter(this.isDeletable);
     },
     k8sIsRunning() {
+      console.log(`QQQ: C/I: k8sIsRunning: this.k8sState =[${ this.k8sState }]`);
       return this.k8sState === K8s.State.STARTED;
     },
     showImageManagerOutput() {
       return !!this.kimRunningCommand || this.keepImageManagerOutputWindowOpen;
     },
     imageManagerProcessIsFinished() {
+      console.log(`QQQ: C/I: imageManagerProcessIsFinished: this.kimRunningCommand =[${ this.kimRunningCommand }]`);
       return !this.kimRunningCommand;
     },
     imageToBuildButtonDisabled() {
