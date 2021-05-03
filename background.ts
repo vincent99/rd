@@ -177,9 +177,10 @@ Electron.ipcMain.on('confirm-do-image-deletion', (event, imageName, imageID) => 
   });
 
   if (choice === 0) {
-    imageManager.deleteImage(imageID);
+    await imageManager.deleteImage(imageID);
     refreshImageList();
   }
+  console.log(`QQQ: kim delete: process-ended`);
   event.reply('kim-process-ended', 0);
 });
 
@@ -217,6 +218,7 @@ Electron.ipcMain.on('do-image-build', async(event, taggedImageName: string) => {
       type:    'error'
     });
   }
+  console.log(`QQQ: kim build: process-ended: code: ${ code }`);
   event.reply('kim-process-ended', code);
 });
 
@@ -237,6 +239,7 @@ Electron.ipcMain.on('do-image-pull', async(event, imageName) => {
       type:    'error'
     });
   }
+  console.log(`QQQ: kim pull: process-ended: code: ${ code }`);
   event.reply('kim-process-ended', code);
 });
 
@@ -253,6 +256,7 @@ Electron.ipcMain.on('do-image-push', async(event, imageName, imageID, tag) => {
       type:    'error'
     });
   }
+  console.log(`QQQ: kim push: process-ended: code: ${ code }`);
   event.reply('kim-process-ended', code);
 });
 

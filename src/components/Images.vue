@@ -181,6 +181,7 @@ export default {
 
   mounted() {
     ipcRenderer.on('kim-process-ended', (event, status) => {
+      console.log(`QQQ: C/I: kim-process-ended for command [${ this.kimRunningCommand }]`);
       this.handleProcessEnd(status);
     });
     ipcRenderer.on('kim-process-output', (event, data, isStderr) => {
