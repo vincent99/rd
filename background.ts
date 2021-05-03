@@ -166,7 +166,7 @@ function refreshImageList() {
   imageManager.start();
 }
 
-Electron.ipcMain.on('confirm-do-image-deletion', (event, imageName, imageID) => {
+Electron.ipcMain.on('confirm-do-image-deletion', async(event, imageName, imageID) => {
   const choice = Electron.dialog.showMessageBoxSync( {
     message:   `Delete image ${ imageName }?`,
     type:      'warning',
