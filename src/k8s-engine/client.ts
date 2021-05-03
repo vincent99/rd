@@ -194,9 +194,18 @@ export class KubeClient extends events.EventEmitter {
       }
     }
 
+    console.log('QQQ: k8s.ListWatch: 1: calling ListWatch');
+    console.log(`QQQ: k8s.ListWatch: 1: called from ${ JSON.stringify((new Error()).stack).split(/\n/).slice(5) }`);
+    console.log(new Error());
     this.services = new k8s.ListWatch(
       '/api/v1/services',
-      new WrappedWatch(this.kubeconfig, () => this.emit('service-changed', this.listServices())),
+      new WrappedWatch(this.kubeconfig, () => {
+        console.log(`QQQ: k8s.ListWatch: 1: service-changed fired`);
+        const s = this.listServices();
+
+        console.log(`QQQ: k8s.ListWatch: 1: this.listServices(): got back ${ s && JSON.stringify(s) }`);
+        this.emit('service-changed', s);
+      }),
       () => this.coreV1API.listServiceForAllNamespaces());
   }
 
